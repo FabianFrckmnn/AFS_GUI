@@ -5,7 +5,6 @@ import datetime
 import BILDER
 import HAUPTMENUE
 
-
 def StartSeite():
     window = TITELSEITE.Tk()
 
