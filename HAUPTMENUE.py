@@ -1240,14 +1240,21 @@ def HauptMenue():
     def PersonalbuttonNeuClick():
         print("")
 
-    def Nutzerauswahl(nutzer_name):
+    def Nutzerauswahl(nutzer_name, nutzer_passwort):
+
         messagebox.showinfo(title="test", message="test")
 
         listeaus = listboxNutzer.curselection()[0]
         nameaus = listboxNutzer.get(listeaus)
         nutzer_name = nameaus
+        nutzer_name = nutzer_name[14:29].strip()
         nutzername.set(nutzer_name)
+        passwortaus = listboxNutzer.get(listeaus)
+        nutzer_passwort = passwortaus
+        nutzer_passwort = nutzer_passwort[38:70].strip()
+        nutzerpasswort.set(nutzer_passwort)
 
+    nutzerpasswort = StringVar()
     nutzername = StringVar()
 
     # ******************************************************************************************************************
@@ -1272,13 +1279,13 @@ def HauptMenue():
     NutzernameText = Entry(PersonalRahmen, width=20, textvariable = nutzername)
     NutzernameText.grid(row=2, column=1, padx='5', pady='0', sticky='nw')
 
-    NutzerpasswortText = Entry(PersonalRahmen, width=20, show='*', textvariable = "nutzerpasswort")
+    NutzerpasswortText = Entry(PersonalRahmen, width=20, show = '*', textvariable = nutzerpasswort)
     NutzerpasswortText.grid(row=3, column=1, padx='5', pady='0', sticky='nw')
 
     listboxNutzer = HAUPTMENUE.Listbox(PersonalRahmen, bd=2, width=80, heigh=5, borderwidth=2, relief="flat",font=('courier', 12,),selectmode='browse')
     listboxNutzer.grid(row=4, column=0, padx='15', pady='10', sticky='ne', columnspan=5)
-    listboxNutzer.bind('<<ListboxSelect>>', lambda x: Nutzerauswahl(nutzername))
-
+    listboxNutzer.bind('<<ListboxSelect>>', lambda x: Nutzerauswahl(nutzername, nutzerpasswort))
+    listboxNutzer.bind('<Double-Button-1>', lambda x: Nutzerauswahl(nutzername, nutzerpasswort))
     Nutzernameleer1_label = HAUPTMENUE.Label(PersonalRahmen, text=" ", fg='#2F4F4F', bg='#BDBDBD', font=('courier', 12), width=31, heigh=1)
     Nutzernameleer1_label.grid(row=5, column=0, padx='5', pady='5', sticky='nw', columnspan=5)
 
