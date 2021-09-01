@@ -3,6 +3,7 @@ from tkinter import *
 import tkinter as TITELSEITE
 import datetime
 import BILDER
+import HAUPTMENUE
 from tkinter import messagebox
 from mongo_connection import *
 
@@ -126,7 +127,8 @@ def StartSeite():
 
         if benutzer=="":
            messagebox.showinfo (title=benutzer, message=passwort)
-
+           window.destroy()
+           HAUPTMENUE.HauptMenue()
         else:
             pass
 
