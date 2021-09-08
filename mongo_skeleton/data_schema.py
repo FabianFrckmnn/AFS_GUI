@@ -13,17 +13,17 @@ class User(Document):
 
 class Kunde(Document):
     kunde_nr = StringField(min_length=10, max_lenght=10, required=True)
+    nachname = StringField(max_length=35, required=True)
+    vorname = StringField(max_length=35)
+    zusatz = StringField(max_length=35)
+    strasse = StringField(max_length=30, required=True)
+    haus_nr = StringField(max_length=4, required=True)
+    plz = StringField(length=5, required=True)
+    stadt = StringField(max_length=29, required=True)
+    ansprech = StringField(max_length=35)
+    telefon_nr = StringField(max_length=35)
+    email = StringField(max_length=35)
     kunde_typ = StringField()
-    vorname = StringField(max_length=50, required=True)
-    nachname = StringField(max_length=50, required=True)
-    voll_name = str(nachname) + " " + str(vorname)
-    strasse = StringField(required=True)
-    haus_nr = IntField(required=True)
-    plz = IntField(length=5, required=True)
-    stadt = StringField(required=True)
-    telefon_nr = StringField()
-    fax_nr = StringField()
-    email = StringField()
 
     meta = {'allow_inheritance': True}
 

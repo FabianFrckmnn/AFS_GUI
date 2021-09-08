@@ -3,9 +3,10 @@ from tkinter import *
 import tkinter as TITELSEITE
 import datetime
 import BILDER
-import HAUPTMENUE
+#import HAUPTMENUE
 from tkinter import messagebox
 from mongo_connection import *
+from mongo_skeleton.data_schema import *
 
 mongo_connect()
 
@@ -118,21 +119,27 @@ def StartSeite():
     einlockhinweis1_label.grid(row=2, column=0, sticky='nw', columnspan=2)
     einlockhinweis1_label = TITELSEITE.Label(loginUmrandung, text="Passwort", fg='#2F4F4F', bg="#A9E2F3", font=('times', 12, 'bold'), width=30, heigh=1)
     einlockhinweis1_label.grid(row=3, column=0, sticky='nw', columnspan=2)
-    passworttext = Entry(loginUmrandung, width=35)
+    passworttext = Entry(loginUmrandung, width=35)#, show = '*')
     passworttext.grid(row=4, column=1, padx='5', pady='1', sticky='nw')
 
     def buttonClick():
         benutzer = Benutzernametext.get().strip()
         passwort=  passworttext.get().strip()
-
+        username = User.objects(user_name=benutzer).scalar('user_name')
+        userpassword = User.objects(user_password=passwort).scalar('user_password')
         if benutzer=="":
-           messagebox.showinfo (title=benutzer, message=passwort)
+           messagebox.showinfo (title="Fehler", message="leeres Eingabefeld")
+           pass
+        elif benutzer == username[0] and passwort == userpassword[0]:
            window.destroy()
-           HAUPTMENUE.HauptMenue()
+           import HAUPTMENUE
+           #HAUPTMENUE.HauptMenue()
+           pass
         else:
-            pass
+           pass
 
-    passwortbutton =TITELSEITE.Button(loginUmrandung, text="       OK       ", bg="#A9E2F3", command=buttonClick).grid(row=5, column=1, padx='80', pady='30', sticky='nw')
+    passwortbutton =TITELSEITE.Button(loginUmrandung, text="       OK       ", bg="#A9E2F3", command=buttonClick)
+    passwortbutton.grid(row=5, column=1, padx='80', pady='30', sticky='nw')
 
     window.mainloop()
 
