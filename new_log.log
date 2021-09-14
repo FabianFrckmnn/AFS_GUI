@@ -1,0 +1,28 @@
+2021-09-14 15:59:00,984 <class '_tkinter.TclError'>
+Traceback (most recent call last):
+  File "C:\Users\Andre\PycharmProjects\AFS_GUI\HAUPTMENUE.py", line 364, in ageberfuellen
+    zusatzAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('zusatz')[0])
+  File "C:\Users\Andre\AppData\Local\Programs\Python\Python39\lib\tkinter\__init__.py", line 3056, in insert
+    self.tk.call(self._w, 'insert', index, string)
+_tkinter.TclError: wrong # args: should be ".!frame2.!entry4 insert index text"
+2021-09-14 15:59:00,993 <class '_tkinter.TclError'>
+Traceback (most recent call last):
+  File "C:\Users\Andre\PycharmProjects\AFS_GUI\HAUPTMENUE.py", line 382, in ageberfuellen
+    ansprechAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('ansprech')[0])
+  File "C:\Users\Andre\AppData\Local\Programs\Python\Python39\lib\tkinter\__init__.py", line 3056, in insert
+    self.tk.call(self._w, 'insert', index, string)
+_tkinter.TclError: wrong # args: should be ".!frame2.!entry9 insert index text"
+2021-09-14 15:59:03,414 <class '_tkinter.TclError'>
+Traceback (most recent call last):
+  File "C:\Users\Andre\PycharmProjects\AFS_GUI\HAUPTMENUE.py", line 364, in ageberfuellen
+    zusatzAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('zusatz')[0])
+  File "C:\Users\Andre\AppData\Local\Programs\Python\Python39\lib\tkinter\__init__.py", line 3056, in insert
+    self.tk.call(self._w, 'insert', index, string)
+_tkinter.TclError: wrong # args: should be ".!frame2.!entry4 insert index text"
+2021-09-14 15:59:03,425 <class '_tkinter.TclError'>
+Traceback (most recent call last):
+  File "C:\Users\Andre\PycharmProjects\AFS_GUI\HAUPTMENUE.py", line 382, in ageberfuellen
+    ansprechAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('ansprech')[0])
+  File "C:\Users\Andre\AppData\Local\Programs\Python\Python39\lib\tkinter\__init__.py", line 3056, in insert
+    self.tk.call(self._w, 'insert', index, string)
+_tkinter.TclError: wrong # args: should be ".!frame2.!entry9 insert index text"

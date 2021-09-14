@@ -18,12 +18,10 @@ from mongoengine import *
 from pynput.keyboard import Key, Controller
 import logging
 
-
-#Create and configure logger
+# Create and configure logger
 logging.basicConfig(filename="new_log.log",
                     format='%(asctime)s %(message)s',
                     filemode='w')
-
 
 mongo_connect()
 
@@ -71,33 +69,18 @@ def HauptMenue():
         datumuhrzeitwochentag = "Sonntag"
     pass
 
-    window_datum_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung,
-                                          text=datumuhrzeitwochentag + " " + datetime.datetime.now().strftime(
-                                              "%d.%m.%Y"), font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD',
-                                          width=25, height=1, relief=GROOVE)
+    window_datum_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text=datumuhrzeitwochentag + " " + datetime.datetime.now().strftime("%d.%m.%Y"), font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=25, height=1, relief=GROOVE)
     window_datum_label.grid(row=0, column=0, padx='10', pady='1', sticky='ew')
-    window_zeit_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text=time.strftime("%H:%M:%S"),
-                                         font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=10, heigh=1,
-                                         relief=GROOVE)
+    window_zeit_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text=time.strftime("%H:%M:%S"), font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=10, heigh=1, relief=GROOVE)
     window_zeit_label.grid(row=0, column=1, padx='10', pady='1', sticky='ew')
     datumuhrzeitkalenderwoche = datetime.date.today().isocalendar()[1]
-    window_Kw_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text="Kalenderwoche " + str(datumuhrzeitkalenderwoche),
-                                       font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=20, heigh=1,
-                                       relief=GROOVE)
+    window_Kw_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text="Kalenderwoche " + str(datumuhrzeitkalenderwoche), font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=20, heigh=1, relief=GROOVE)
     window_Kw_label.grid(row=0, column=2, padx='10', pady='1', sticky='ew')
     # print (datetime.date(2021,12,24).isocalendar()[1]) zu datum KW auslesen
-    window_Sachbearbeiter_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text="Sachbearbeiter",
-                                                   font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=25,
-                                                   heigh=1, relief=GROOVE)
+    window_Sachbearbeiter_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text="Sachbearbeiter", font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=25, heigh=1, relief=GROOVE)
     window_Sachbearbeiter_label.grid(row=0, column=3, padx='10', pady='1', sticky='ew')
-    window_Sachbearbeiterleer_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text="                          ",
-                                                       font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=50,
-                                                       heigh=1, relief=FLAT)
+    window_Sachbearbeiterleer_label = HAUPTMENUE.Label(DatumUhrzeitUmrandung, text="                          ", font=('Courier New', 16,), fg='#2F4F4F', bg='#BDBDBD', width=50, heigh=1, relief=FLAT)
     window_Sachbearbeiterleer_label.grid(row=0, column=4, padx='10', pady='1', sticky='ew')
-
-    # window_vorgangOk = Entry(DatumUhrzeitUmrandung, font=('Courier New', 8,), fg='#2F4F4F', bg='#BDBDBD', width=7, heigh=1, relief=GROOVE)
-    # zusatzAgeber = Entry(DatumUhrzeitUmrandung, width=35, textvariable=zusatzAgebervar, font=('Courier New', 12))
-    # window_vorgangOk.grid(row=0, column=5, padx='10', pady='1', sticky='ew')
 
     def digital_clock():
         time_live = time.strftime("%H:%M:%S")
@@ -107,10 +90,10 @@ def HauptMenue():
     digital_clock()
 
     def funcReturn(event):
-        print("You hit return.")
         keyboard = Controller()
         keyboard.press(Key.tab)
         keyboard.release(Key.tab)
+
     window.bind('<Return>', funcReturn)
 
     # ******************************************************************************************************************
@@ -122,6 +105,7 @@ def HauptMenue():
     # ******************************************************************************************************************
 
     textauswertungvar = StringVar()
+    AgKdNrZahl= StringVar()
     kdnrvar = StringVar()
     kundennummerAgebervar = StringVar()
     nachnameAgebervar = StringVar()
@@ -135,6 +119,7 @@ def HauptMenue():
     telAgebervar = StringVar()
     mailAgebervar = StringVar()
     vorgangOkvar = StringVar()
+    vorgangOkvar="Vorgang"
     vorgangOk = Entry(DatumUhrzeitUmrandung, width=7, textvariable=vorgangOkvar, font=('Courier New', 6))
     vorgangOk.grid(row=0, column=5, padx='10', pady='1', sticky='ew')
 
@@ -142,14 +127,12 @@ def HauptMenue():
 
     AgeberUmrandung = HAUPTMENUE.Frame(window, width=200, heigh=1, bg='#BDBDBD', borderwidth=2, relief="groove")
     AgeberUmrandung.grid(row=0, column=0, padx='5', pady='5', sticky='nw')
-    AgeberUmrandungText_label = HAUPTMENUE.Label(AgeberUmrandung, text="Auftraggeber", fg='#2F4F4F', bg='#BDBDBD',
-                                                 font=('Courier New', 10,), width=12, heigh=1, relief=GROOVE)
+    AgeberUmrandungText_label = HAUPTMENUE.Label(AgeberUmrandung, text="Auftraggeber", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 10,), width=12, heigh=1, relief=GROOVE)
     AgeberUmrandungText_label.grid(row=0, column=0, padx='0', pady='0', sticky='ew', columnspan=2)
 
     #                                    Entry UND LABEL KUNDENNUMMER ZUFÜGEN
 
-    kdnummerAgeber_label = HAUPTMENUE.Label(AgeberUmrandung, text="Kd-Nummer", fg='#2F4F4F', bg='#BDBDBD',
-                                            font=('Courier New', 12,), width=9, heigh=1)
+    kdnummerAgeber_label = HAUPTMENUE.Label(AgeberUmrandung, text="Kd-Nummer", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 12,), width=9, heigh=1)
     kdnummerAgeber_label.grid(row=1, column=0, padx='5', pady='20', sticky='nw')
     kdnummerAgeber = Entry(AgeberUmrandung, width=10, textvariable=kdnrvar, font=('Courier New', 12))
     kdnummerAgeber.grid(row=1, column=1, padx='5', pady='20', sticky='nw')
@@ -221,7 +204,9 @@ def HauptMenue():
     mailAgeber_label.grid(row=9, column=0, padx='5', pady='0', sticky='nw')
     mailAgeber = Entry(AgeberUmrandung, width=35, textvariable=mailAgebervar, font=('Courier New', 12))
     mailAgeber.grid(row=9, column=1, padx='5', pady='0', sticky='nw')
-
+    AgKdNrZahl=""
+    NeukdnummerAgeber_label = HAUPTMENUE.Label(AgeberUmrandung, text=AgKdNrZahl, fg='#2F4F4F', bg='#FFFFFF', font=('Courier New', 12), width=10)
+    NeukdnummerAgeber_label.grid_forget()
     kdnrvar = "0000000001"
 
     # ******************************************************************************************************************
@@ -351,8 +336,6 @@ def HauptMenue():
                 Kunde.objects(kunde_nr=kdnrvar).update_one(ansprech=ansprechAgebervar.get().strip()[0: 35])
                 Kunde.objects(kunde_nr=kdnrvar).update_one(telefon_nr=telAgebervar.get().strip()[0: 35])
                 Kunde.objects(kunde_nr=kdnrvar).update_one(email=mailAgebervar.get().strip()[0: 29])
-
-                # User.objects(user_name=benutzer).update_one(user_password=passwort)
         else:
             messagebox.showerror(title='Fehler', message="keine gültige Kundennummer")
             pass
@@ -366,62 +349,61 @@ def HauptMenue():
     # ******************************************************************************************************************
 
     def ageberfuellen(kdnrvar):
-            kdnummerAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('kunde_nr')[0])
-            nachnameAgeber.delete(0, END)
-            nachnameAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('nachname')[0])
-            vornameAgeber.delete(0, END)
-            if Kunde.objects(vorname__exists=True):
-                vornameAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('vorname')[0])
-            else:
-                pass
+        kdnummerAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('kunde_nr')[0])
+        nachnameAgeber.delete(0, END)
+        nachnameAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('nachname')[0])
+        vornameAgeber.delete(0, END)
+        if Kunde.objects(vorname__exists=True):
+            vornameAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('vorname')[0])
+        else:
+            pass
 
-            zusatzAgeber.delete(0, END)
-            if Kunde.objects(zusatz__exists=True):
-                #zusatzAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('zusatz')[0])
-                try:
-                    zusatzAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('zusatz')[0])
-                except TclError:
-                    logging.exception(TclError)
+        zusatzAgeber.delete(0, END)
+        if Kunde.objects(zusatz__exists=True):
+            try:
+                zusatzAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('zusatz')[0])
+            except TclError:
+                logging.exception(TclError)
 
-            else:
-                pass
-            strAgeber.delete(0, END)
-            strAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('strasse')[0])
-            hnrAgeber.delete(0, END)
-            hnrAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('haus_nr')[0])
-            plzAgeber.delete(0, END)
-            plzAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('plz')[0])
-            ortAgeber.delete(0, END)
-            ortAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('stadt')[0])
-            ansprechAgeber.delete(0, END)
+        else:
+            pass
+        strAgeber.delete(0, END)
+        strAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('strasse')[0])
+        hnrAgeber.delete(0, END)
+        hnrAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('haus_nr')[0])
+        plzAgeber.delete(0, END)
+        plzAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('plz')[0])
+        ortAgeber.delete(0, END)
+        ortAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('stadt')[0])
+        ansprechAgeber.delete(0, END)
 
-            if Kunde.objects(ansprech__exists=True):
-                try:
-                    ansprechAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('ansprech')[0])
-                except TclError:
-                    logging.exception(TclError)
-            else:
-                pass
-            telAgeber.delete(0, END)
+        if Kunde.objects(ansprech__exists=True):
+            try:
+                ansprechAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('ansprech')[0])
+            except TclError:
+                logging.exception(TclError)
+        else:
+            pass
+        telAgeber.delete(0, END)
 
-            if Kunde.objects(telefon_nr__exists=True):
-                try:
-                    telAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('telefon_nr')[0])
-                except TclError:
-                    logging.exception(TclError)
-            else:
-                pass
-            mailAgeber.delete(0, END)
+        if Kunde.objects(telefon_nr__exists=True):
+            try:
+                telAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('telefon_nr')[0])
+            except TclError:
+                logging.exception(TclError)
+        else:
+            pass
+        mailAgeber.delete(0, END)
 
-            if Kunde.objects(email__exists=True):
-                try:
-                    mailAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('email')[0])
-                except TclError:
-                    logging.exception(TclError)
-            else:
-                pass
+        if Kunde.objects(email__exists=True):
+            try:
+                mailAgeber.insert(0, Kunde.objects(kunde_nr=kdnrvar).scalar('email')[0])
+            except TclError:
+                logging.exception(TclError)
+        else:
+            pass
 
-
+        vorgangOkvar = "VORGANG"
     # ******************************************************************************************************************
     # ******************************************************************************************************************
     # ******************************************************************************************************************
@@ -430,7 +412,7 @@ def HauptMenue():
     # ******************************************************************************************************************
     # ******************************************************************************************************************
 
-    def agebercalarliste():
+    def ageberscalarliste():
         auftragkundennummer = Kunde.objects().scalar('kunde_nr')
         auftragnachname = Kunde.objects().scalar('nachname')
         auftragvorname = Kunde.objects().scalar('vorname')
@@ -454,8 +436,7 @@ def HauptMenue():
 
     #                                UMRANDUNG OBJEKT ERSTELLEN
 
-    ObjektUmrandung = HAUPTMENUE.Frame(AgeberUmrandung, width=200, heigh=263, bg='#BDBDBD', borderwidth=2,
-                                       relief="flat", )
+    ObjektUmrandung = HAUPTMENUE.Frame(AgeberUmrandung, width=200, heigh=263, bg='#BDBDBD', borderwidth=2, relief="flat", )
     ObjektUmrandung.grid(row=0, column=3, padx='40', pady='0', sticky='nw', rowspan=10)
     ObjektUmrandungText_label = HAUPTMENUE.Label(ObjektUmrandung, text="Objekt", fg='#2F4F4F', bg='#BDBDBD',
                                                  font=('Courier New', 10,), width=6, heigh=1, relief=GROOVE)
@@ -537,6 +518,10 @@ def HauptMenue():
     objektmail = Entry(ObjektUmrandung, width=35, font=('Courier New', 12))
     objektmail.grid(row=9, column=1, padx='5', pady='2', sticky='nw')
 
+    NeuobnrObjekt_label = HAUPTMENUE.Label(ObjektUmrandung, text="00001", fg='#2F4F4F', bg='#FFFFFF', font=('Courier New', 12), width=5)
+    NeuobnrObjekt_label.grid_forget()
+
+
     # ******************************************************************************************************************
     # ******************************************************************************************************************
     # ******************************************************************************************************************
@@ -545,30 +530,18 @@ def HauptMenue():
     # ******************************************************************************************************************
     # ******************************************************************************************************************
 
-    Button1Umrandung = HAUPTMENUE.Frame(AgeberUmrandung, bd=2, width=200, heigh=263, bg='#BDBDBD', borderwidth=2,
-                                        relief="flat", )
+    Button1Umrandung = HAUPTMENUE.Frame(AgeberUmrandung, bd=2, width=200, heigh=263, bg='#BDBDBD', borderwidth=2, relief="flat", )
     Button1Umrandung.grid(row=0, column=4, padx='5', pady='0', sticky='nw', rowspan=10)
-    Button1UmrandungText_label = HAUPTMENUE.Label(Button1Umrandung, text="Auswahl", fg='#2F4F4F', bg='#BDBDBD',
-                                                  font=('Courier New', 10,), width=16, heigh=1, relief=GROOVE)
+    Button1UmrandungText_label = HAUPTMENUE.Label(Button1Umrandung, text="Auswahl", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 10,), width=16, heigh=1, relief=GROOVE)
     Button1UmrandungText_label.grid(row=0, column=0, padx='0', pady='0', sticky='ew')
 
-    ButtonSuchen = HAUPTMENUE.Button(Button1Umrandung, text="Suchen").grid(row=1, column=0, padx='10', pady='20',
-                                                                           sticky='ew')
+    ButtonSuchen = HAUPTMENUE.Button(Button1Umrandung, text="Suchen").grid(row=1, column=0, padx='10', pady='20', sticky='ew')
     ButtonNeu = HAUPTMENUE.Button(Button1Umrandung, text="Neu").grid(row=2, column=0, padx='10', pady='5', sticky='ew')
-    ButtonAendern = HAUPTMENUE.Button(Button1Umrandung, text="Bearbeiten").grid(row=3, column=0, padx='10', pady='5',
-                                                                                sticky='ew')
-    ButtonSpeichern = HAUPTMENUE.Button(Button1Umrandung, text="Speichern",
-                                        command=lambda: ageberspeichern(kdnrvar)).grid(row=4, column=0, padx='10',
-                                                                                       pady='5', sticky='ew')
-    ButtonFestpreise = HAUPTMENUE.Button(Button1Umrandung, text="Festpreise").grid(row=5, column=0, padx='10', pady='5',
-                                                                                   sticky='ew')
-    Button1UmrandungText_label = HAUPTMENUE.Label(Button1Umrandung, text="", bg='#BDBDBD', relief=FLAT).grid(row=6,
-                                                                                                             column=0,
-                                                                                                             padx='5',
-                                                                                                             pady='5')
-    ButtonDelete = HAUPTMENUE.Button(Button1Umrandung, text="Löschen", bg='#FF0040').grid(row=8, column=0, padx='10',
-                                                                                          pady='5', sticky='ew',
-                                                                                          columnspan=1)
+    ButtonAendern = HAUPTMENUE.Button(Button1Umrandung, text="Bearbeiten").grid(row=3, column=0, padx='10', pady='5', sticky='ew')
+    ButtonSpeichern = HAUPTMENUE.Button(Button1Umrandung, text="Speichern", command=lambda: ageberspeichern(kdnrvar)).grid(row=4, column=0, padx='10', pady='5', sticky='ew')
+    ButtonFestpreise = HAUPTMENUE.Button(Button1Umrandung, text="Festpreise").grid(row=5, column=0, padx='10', pady='5', sticky='ew')
+    Button1UmrandungText_label = HAUPTMENUE.Label(Button1Umrandung, text="", bg='#BDBDBD', relief=FLAT).grid(row=6, column=0, padx='5', pady='5')
+    ButtonDelete = HAUPTMENUE.Button(Button1Umrandung, text="Löschen", bg='#FF0040').grid(row=8, column=0, padx='10', pady='5', sticky='ew', columnspan=1)
 
     # ******************************************************************************************************************
     # ******************************************************************************************************************
@@ -578,11 +551,9 @@ def HauptMenue():
     # ******************************************************************************************************************
     # ******************************************************************************************************************
 
-    suchenbox = HAUPTMENUE.Listbox(AgeberUmrandung, bd=2, width=111, heigh=16, borderwidth=2, font=('Courier New', 8),
-                                   relief="flat")
+    suchenbox = HAUPTMENUE.Listbox(AgeberUmrandung, bd=2, width=111, heigh=16, borderwidth=2, font=('Courier New', 8), relief="flat")
     suchenbox.grid(row=1, column=5, padx='15', pady='10', sticky='ne', rowspan=10)
-    suchenboxText_label = HAUPTMENUE.Label(AgeberUmrandung, text="KUNDEN", fg='#2F4F4F', bg='#BDBDBD',
-                                           font=('Courier New', 10,), width=6, heigh=1, relief=GROOVE)
+    suchenboxText_label = HAUPTMENUE.Label(AgeberUmrandung, text="KUNDEN", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 10,), width=6, heigh=1, relief=GROOVE)
     suchenboxText_label.grid(row=0, column=5, padx='15', pady='0', sticky='ew')
 
     # ******************************************************************************************************************
@@ -595,8 +566,7 @@ def HauptMenue():
 
     #                                UMRANDUNG VERTRAGSARTAUSWAHL ERSTELLEN
 
-    VertragsArtUmrandung = HAUPTMENUE.Frame(window, bd=2, width=400, heigh=58, bg='#D8D8D8', borderwidth=2,
-                                            relief="groove", )
+    VertragsArtUmrandung = HAUPTMENUE.Frame(window, bd=2, width=400, heigh=58, bg='#D8D8D8', borderwidth=2, relief="groove", )
     VertragsArtUmrandung.grid(row=1, column=0, padx='5', pady='0', sticky='nw', columnspan=1)
 
     #                          *******************************************
@@ -649,33 +619,29 @@ def HauptMenue():
     vertragsartcheckbox4var = HAUPTMENUE.IntVar()
 
     vertragsart_checkbox1 = HAUPTMENUE.Checkbutton(VertragsArtUmrandung, text="Wartung      ",
-                                                   variable=vertragsartcheckbox1var,
-                                                   fg='#2F4F4F', bg='#D8D8D8', font=('Courier New', 12,), width=13,
-                                                   heigh=1, onvalue=1,
-                                                   offvalue=0, command=partial(vertragsart_checkbox1_check,
-                                                                               vertragsartcheckbox1var))
+                                                   variable=vertragsartcheckbox1var, fg='#2F4F4F', bg='#D8D8D8',
+                                                   font=('Courier New', 12,), width=13, heigh=1, onvalue=1, offvalue=0,
+                                                   command=partial(vertragsart_checkbox1_check,
+                                                                   vertragsartcheckbox1var))
     vertragsart_checkbox1.grid(row=1, column=0, padx='5', pady='1', sticky='nw')
 
     vertragsart_checkbox2 = HAUPTMENUE.Checkbutton(VertragsArtUmrandung, text="Einzel      ",
-                                                   variable=vertragsartcheckbox2var,
-                                                   fg='#2F4F4F', bg='#D8D8D8', onvalue=1, offvalue=0,
-                                                   font=('Courier New', 12,), width=12,
-                                                   heigh=1, command=partial(vertragsart_checkbox2_check,
-                                                                            vertragsartcheckbox2var))
+                                                   variable=vertragsartcheckbox2var, fg='#2F4F4F', bg='#D8D8D8',
+                                                   onvalue=1, offvalue=0, font=('Courier New', 12,), width=12, heigh=1,
+                                                   command=partial(vertragsart_checkbox2_check,
+                                                                   vertragsartcheckbox2var))
     vertragsart_checkbox2.grid(row=1, column=1, padx='5', pady='1', sticky='nw')
 
     vertragsart_checkbox3 = HAUPTMENUE.Checkbutton(VertragsArtUmrandung, text="Angebot      ",
-                                                   variable=vertragsartcheckbox3var,
-                                                   fg='#2F4F4F', onvalue=1, offvalue=0, bg='#D8D8D8',
-                                                   font=('Courier New', 12,), width=13,
+                                                   variable=vertragsartcheckbox3var, fg='#2F4F4F', onvalue=1,
+                                                   offvalue=0, bg='#D8D8D8', font=('Courier New', 12,), width=13,
                                                    heigh=1, command=partial(vertragsart_checkbox3_check,
                                                                             vertragsartcheckbox3var))
     vertragsart_checkbox3.grid(row=2, column=0, padx='5', pady='1', sticky='nw')
 
     vertragsart_checkbox4 = HAUPTMENUE.Checkbutton(VertragsArtUmrandung, text="Mehrfach    ",
-                                                   variable=vertragsartcheckbox4var,
-                                                   fg='#2F4F4F', onvalue=1, offvalue=0, bg='#D8D8D8',
-                                                   font=('Courier New', 12,), width=12,
+                                                   variable=vertragsartcheckbox4var, fg='#2F4F4F', onvalue=1,
+                                                   offvalue=0, bg='#D8D8D8', font=('Courier New', 12,), width=12,
                                                    heigh=1, command=partial(vertragsart_checkbox4_check,
                                                                             vertragsartcheckbox4var))
     vertragsart_checkbox4.grid(row=2, column=1, padx='5', pady='1', sticky='nw')
@@ -980,8 +946,7 @@ def HauptMenue():
 
     #                       UMRANDUNG FÜR GETROFFENE MASSNAHMEN ERSTELLEN
 
-    MassnahmenUmrandung = HAUPTMENUE.Frame(window, bd=2, width=1301, heigh=58, bg='#BDBDBD', borderwidth=2,
-                                           relief="groove", )
+    MassnahmenUmrandung = HAUPTMENUE.Frame(window, bd=2, width=1301, heigh=58, bg='#BDBDBD', borderwidth=2, relief="groove", )
     MassnahmenUmrandung.grid(row=5, column=0, padx='5', pady='3', sticky='nw', columnspan=1)
 
     #                  **********************************************
@@ -1065,8 +1030,7 @@ def HauptMenue():
     Massnahmen_checkbox18text.grid(row=2, column=5, padx='15', pady='3', sticky='ne')
 
     #                       UMRANDUNG FÜR BEFALLSANALYSE UND MATERIALEINSATZ ERSTELLEN
-    BefallanalyseUmrandung = HAUPTMENUE.Frame(window, bd=2, width=1301, heigh=58, bg='#BDBDBD', borderwidth=2,
-                                              relief="groove", )
+    BefallanalyseUmrandung = HAUPTMENUE.Frame(window, bd=2, width=1301, heigh=58, bg='#BDBDBD', borderwidth=2, relief="groove", )
     BefallanalyseUmrandung.grid(row=6, column=0, padx='5', pady='3', sticky='nw', columnspan=1)
 
     #                     **********************************************
@@ -1084,6 +1048,7 @@ def HauptMenue():
                                          "Stärke:mittel-schwer", "Stärke:schwer"], font=('Courier New', 10), width=25)
     Befallstaerke.grid(row=0, column=1, padx='10', pady='10', sticky='nw')
     Befallstaerke.current(0)
+
     #                  ***********************************************************
 
     Befallzeichen1_label = HAUPTMENUE.Label(BefallanalyseUmrandung, text="Hinweis", fg='#2F4F4F', bg='#BDBDBD',
@@ -1331,7 +1296,7 @@ def HauptMenue():
     #                        RAHMEN FÜR ZAHLUNGS- UND RECHNUNGSSTELLUNG
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    ZahlungsRahmen0 = HAUPTMENUE.Frame(window, width=659, heigh=360, bg='#BDBDBD', borderwidth=2, relief="groove", )
+    ZahlungsRahmen0 = HAUPTMENUE.Frame(window, width=659, heigh=360, bg='#BDBDBD', borderwidth=2, relief="groove")
     ZahlungsRahmen0.grid(row=6, column=0, padx='420', pady='3', sticky='nw', columnspan=5)
     AbrechnungRahmen = HAUPTMENUE.Frame(ZahlungsRahmen0, width=659, heigh=360, bg='#BDBDBD', borderwidth=2,
                                         relief="flat", )
@@ -1694,9 +1659,11 @@ def HauptMenue():
     AbrechnungRahmen1Leer1_label = HAUPTMENUE.Label(AbrechnungRahmen1, text=" ", fg='#2F4F4F', bg='#BDBDBD',
                                                     font=('Courier New', 12,), width=22, heigh=1)
     AbrechnungRahmen1Leer1_label.grid(row=0, column=0, padx='5', pady='0', sticky='nw')
-    HautbuttonDrucken = HAUPTMENUE.Button(AbrechnungRahmen1, text="Drucken").grid(row=0, column=0, padx='10', pady='20',
-                                                                                  sticky='ew')
+    HautbuttonDrucken = HAUPTMENUE.Button(AbrechnungRahmen1, text="Drucken").grid(row=0, column=0, padx='10', pady='20', sticky='ew')
 
+
+
+    # ButtonNeukundeUmrandung.grid_forget()
     # ******************************************************************************************************************
     # ******************************************************************************************************************
     # ******************************************************************************************************************
@@ -1704,51 +1671,52 @@ def HauptMenue():
     # ******************************************************************************************************************
     # ******************************************************************************************************************
     # ******************************************************************************************************************
+
     def TexteFocusIn(event):
         widget = window.focus_get()
         # frame2_entry = ".!frame2.!entry" # Feld AUFTRAGGEGBER KDNUMMER
         frame2_entry2 = ".!frame2.!entry2"  # Feld AUFTRAGGEGBER NACHNAME
         frame2_entry5 = ".!frame2.!entry5"  # Feld AUFTRAGGEGBER STRASSE
 
-    #                              WENN AUSTRAGGEBER NACHNAME FOCUS BEKOMMT
+        #                              WENN AUSTRAGGEBER NACHNAME FOCUS BEKOMMT
 
         if str(widget) == frame2_entry2:
             textauswertungvar = nachnameAgebervar.get()
-            agebercalarliste()
+            ageberscalarliste()
             suchenbox.delete(0, END)
             i = 0
             kundepos = 0
             z = len(Kunde.objects(nachname__istartswith=textauswertungvar).scalar('nachname'))
             while i < z:
-                #suchenbox.insert(END, Kunde.objects(nachname__istartswith=textauswertungvar).scalar('kunde_nr','nachname', 'vorname', str('strasse')).order_by('nachname')[kundepos])
+                # suchenbox.insert(END, Kunde.objects(nachname__istartswith=textauswertungvar).scalar('kunde_nr','nachname', 'vorname', str('strasse')).order_by('nachname')[kundepos])
                 auftragkundennummer = Kunde.objects(nachname__istartswith=textauswertungvar).scalar('kunde_nr').order_by('nachname')[kundepos]
                 auftragnachname = Kunde.objects(nachname__istartswith=textauswertungvar).scalar('nachname').order_by('nachname')[kundepos]
                 auftragvorname = Kunde.objects(nachname__istartswith=textauswertungvar).scalar('vorname').order_by('nachname')[kundepos]
                 auftragstrasse = Kunde.objects(nachname__istartswith=textauswertungvar).scalar('strasse').order_by('nachname')[kundepos]
-                auftraghausnummer = Kunde.objects(nachname__istartswith=textauswertungvar).scalar('haus_nr').order_by('nachname')[kundepos]
-                suchenbox.insert(END, auftragkundennummer.ljust(10)[0:10] + "  " + auftragnachname.ljust(35)[0:35] + "  " +
-                                      auftragvorname.ljust(35)[0:35] + "  " +auftragstrasse + " " +  auftraghausnummer)
+                auftraghausnummer =  Kunde.objects(nachname__istartswith=textauswertungvar).scalar('haus_nr').order_by('nachname')[kundepos]
+                suchenbox.insert(END, auftragkundennummer.ljust(10)[0:10] + "  " + auftragnachname.ljust(35)[0:35] + "  " + auftragvorname.ljust(35)[0:35] + "  " + auftragstrasse + " " + auftraghausnummer)
                 i += 1
                 kundepos += 1
 
-    #                              WENN AUSTRAGGEBER NACHNAME FOCUS BEKOMMT
+        #                              WENN AUSTRAGGEBER NACHNAME FOCUS BEKOMMT
 
         if str(widget) == frame2_entry5:
             textauswertungvar = strAgebervar.get()
-            agebercalarliste()
+            ageberscalarliste()
             suchenbox.delete(0, END)
             i = 0
             kundepos = 0
             z = len(Kunde.objects(strasse__istartswith=textauswertungvar).scalar('strasse'))
             while i < z:
-                #suchenbox.insert(END, Kunde.objects(nachname__istartswith=textauswertungvar).scalar('kunde_nr','nachname', 'vorname', str('strasse')).order_by('nachname')[kundepos])
+                # suchenbox.insert(END, Kunde.objects(nachname__istartswith=textauswertungvar).scalar('kunde_nr','nachname', 'vorname', str('strasse')).order_by('nachname')[kundepos])
                 auftragkundennummer = Kunde.objects(strasse__istartswith=textauswertungvar).scalar('kunde_nr').order_by('strasse')[kundepos]
                 auftragnachname = Kunde.objects(strasse__istartswith=textauswertungvar).scalar('nachname').order_by('strasse')[kundepos]
                 auftragvorname = Kunde.objects(strasse__istartswith=textauswertungvar).scalar('vorname').order_by('strasse')[kundepos]
                 auftragstrasse = Kunde.objects(strasse__istartswith=textauswertungvar).scalar('strasse').order_by('strasse')[kundepos]
                 auftraghausnummer = Kunde.objects(strasse__istartswith=textauswertungvar).scalar('haus_nr').order_by('strasse')[kundepos]
-                suchenbox.insert(END, auftragkundennummer.ljust(10)[0:10] + "  " + auftragnachname.ljust(35)[0:35] + "  " +
-                                      auftragvorname.ljust(35)[0:35] + "  " +auftragstrasse + " " +  auftraghausnummer)
+                suchenbox.insert(END,
+                                 auftragkundennummer.ljust(10)[0:10] + "  " + auftragnachname.ljust(35)[0:35] + "  " +
+                                 auftragvorname.ljust(35)[0:35] + "  " + auftragstrasse + " " + auftraghausnummer)
                 i += 1
                 kundepos += 1
 
@@ -1760,20 +1728,126 @@ def HauptMenue():
     # ******************************************************************************************************************
     # ******************************************************************************************************************
 
+    ButtonNeukundeUmrandung = HAUPTMENUE.Frame(AgeberUmrandung, bd=2, width=200, heigh=263, bg='#BDBDBD', borderwidth=2, relief="flat", )
 
     def TexteFocusOutAgKdnr(event):
         textauswertungvar = kdnummerAgeber.get()
-        auftragkundennummer = Kunde.objects(kunde_nr=textauswertungvar).scalar('kunde_nr')
-        kdnrvar=textauswertungvar
-        ageberfuellen(kdnrvar)
-        suchenbox.delete(0, END)
+        y = textauswertungvar
+        x = Kunde.objects(kunde_nr=y).count()
+        z = Kunde.objects(kunde_nr=y).scalar('kunde_nr')
+        if x >= 1:
+            auftragkundennummer = Kunde.objects(kunde_nr=textauswertungvar).scalar('kunde_nr')
+            kdnrvar = textauswertungvar
+            ageberfuellen(kdnrvar)
+            suchenbox.delete(0, END)
+            vorgangOkvar = "VORGANG"
+            pass
+        elif x < 1:
+            msgbox = messagebox.askyesno(title="KUNDE NICHT VORHANDEN ! ", message="NEUEN KUNDEN ANLEGEN ?")  # icon = 'error'
+            if str(msgbox) == 'True':
+                messagebox.showinfo(title="HINWEIS", message="KUNDENNUMMER WIRD AUTOMATISCH GENERIERT")
+                vorgangOkvar = "KUNDE NEU"
+
+                for textauswertungvar in Kunde.objects.order_by('kunde_nr'):
+                    kdzahl = Kunde.objects.count()
+
+                AgKdNrJahr = (textauswertungvar.kunde_nr).strip()[0: 4]  # .ljust(35, " ")
+                AktuellJahr = (datetime.datetime.now().strftime('%Y'))
+                if AktuellJahr == AgKdNrJahr:
+                   AgKdNrZahl = (textauswertungvar.kunde_nr).strip()[4: 10]
+                   AgKdNrZahl=int(AgKdNrZahl) + 1
+                   AgKdNrZahl= AktuellJahr + (str(AgKdNrZahl).rjust(6, "0"))
+                   kdnummerAgeber.grid_forget()
+                   NeukdnummerAgeber_label.config(text=AgKdNrZahl)
+                   NeukdnummerAgeber_label.grid(row=1, column=1, padx='5', pady='20', sticky='nw')
+                   obnrObjekt.grid_forget()
+                   NeuobnrObjekt_label.grid(row=1, column=1, padx='5', pady='20', sticky='nw')
+
+                else:
+                   messagebox.showinfo(title="nein")
+
+
+                ButtonNeukundeUmrandung.grid(row=0, column=5, padx='15', pady='0', sticky='nw', rowspan=10)
+                ButtonNeukundeUmrandungText_label = HAUPTMENUE.Label(ButtonNeukundeUmrandung, text="Auswahl", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 10,), width=18, heigh=1, relief=GROOVE)
+                ButtonNeukundeUmrandungText_label.grid(row=0, column=0, padx='0', pady='0', sticky='ew')
+                ButtonNeukundeUmrandungLeer_label = HAUPTMENUE.Label(ButtonNeukundeUmrandung, text="            ", fg='#2F4F4F',bg='#BDBDBD', font=('Courier New', 10,), width=12,heigh=1, relief=FLAT)
+                ButtonNeukundeUmrandungLeer_label.grid(row=1, column=0, padx='0', pady='0', sticky='ew')
+                ButtonNeukundeUmrandungLeer1_label = HAUPTMENUE.Label(ButtonNeukundeUmrandung, text="            ", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 10,), width=12, heigh=1, relief=FLAT)
+                ButtonNeukundeUmrandungLeer1_label.grid(row=2, column=0, padx='0', pady='0', sticky='ew')
+                ButtonNeukundeUmrandungLeer2_label = HAUPTMENUE.Label(ButtonNeukundeUmrandung, text="            ", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 10,), width=12, heigh=1, relief=FLAT)
+                ButtonNeukundeUmrandungLeer2_label.grid(row=3, column=0, padx='0', pady='0', sticky='ew')
+
+                ButtonNeukundeSpeichern = HAUPTMENUE.Button(ButtonNeukundeUmrandung, text="Speichern").grid(row=4, column=0, padx='0', pady='0', sticky='ew')
+
+                ButtonNeukundeUmrandungLeer3_label = HAUPTMENUE.Label(ButtonNeukundeUmrandung, text="            ", fg='#2F4F4F', bg='#BDBDBD', font=('Courier New', 10,), width=12, heigh=1, relief=FLAT)
+                ButtonNeukundeUmrandungLeer3_label.grid(row=5, column=0, padx='0', pady='0', sticky='ew')
+
+                ButtonNeukundeAbbruch = HAUPTMENUE.Button(ButtonNeukundeUmrandung, text="Abbrechen", command=NeukundeAbbruchClick).grid(row=6, column = 0, padx = '0', pady = '0', sticky = 'ew')
+
+                suchenbox.grid_forget()
+                VertragsArtUmrandung.grid_forget()
+                BehandlungenRahmen1.grid_forget()
+                BehandlungenRahmen2.grid_forget()
+                TierUmrandung.grid_forget()
+                GesetzeUmrandung.grid_forget()
+                MassnahmenUmrandung.grid_forget()
+                BefallanalyseUmrandung.grid_forget()
+                ZahlungsRahmen0.grid_forget()
+                Hautbuttonumrandung.grid_forget()
+                Button1Umrandung.grid_forget()
+                suchenboxText_label.grid_forget()
+                DatumUhrzeitUmrandung.grid(row=1, column=0, padx='5', pady='680', sticky='nw', columnspan=11)
+                # user_number = Kunde.objects.
+                #textauswertungvar = (0, Kunde.objects(kunde_nr=user_number).scalar('kunde_nr')[0])
+                                # (0, Kunde.objects(kunde_nr=kdnrvar).scalar('kunde_nr')[0])
+                # for i in User.objects():
+                #  listboxNutzer.insert(END,
+
+                # [user_number]rt: {userpassword[user_number]})
+                # .ljust(20)[0:20]}')
+                #  user_number += 1
+
+                msgboxa = messagebox.askyesno(title="FRAGE ! ", message="DIESE DATEN ÜBERNEHMEN ?")
+                if str(msgboxa) == 'True':
+                    messagebox.showinfo(title="DA")
+                    pass
+                else:
+                    pass
+
+
+            else:
+                vorgangOkvar = "VORGANG OHNE NUMMER"
+                pass
+
+    def NeukundeAbbruchClick():
+        ObjektUmrandung.grid(row=0, column=3, padx='40', pady='0', sticky='nw', rowspan=10)
+        suchenbox.grid(row=1, column=5, padx='15', pady='10', sticky='ne', rowspan=10)
+        VertragsArtUmrandung.grid(row=1, column=0, padx='5', pady='0', sticky='nw', columnspan=1)
+        BehandlungenRahmen1.grid(row=1, column=2, padx='0', pady='1', sticky='nw', columnspan=5, rowspan=5)
+        TierUmrandung.grid(row=3, column=0, padx='5', pady='3', sticky='nw', columnspan=1)
+        GesetzeUmrandung.grid(row=4, column=0, padx='5', pady='3', sticky='nw', columnspan=1)
+        MassnahmenUmrandung.grid(row=5, column=0, padx='5', pady='3', sticky='nw', columnspan=1)
+        BefallanalyseUmrandung.grid(row=6, column=0, padx='5', pady='3', sticky='nw', columnspan=1)
+        ZahlungsRahmen0.grid(row=6, column=0, padx='420', pady='3', sticky='nw', columnspan=5)
+        Hautbuttonumrandung.grid(row=0, column=1, padx='0', pady='3', sticky='nw', rowspan=7)
+        Button1Umrandung.grid(row=0, column=4, padx='5', pady='0', sticky='nw', rowspan=10)
+        DatumUhrzeitUmrandung.grid(row=7, column=0, padx='5', pady='0', sticky='nw', columnspan=11)
+        suchenboxText_label.grid(row=0, column=5, padx='15', pady='0', sticky='ew')
+        ButtonNeukundeUmrandung.grid_forget()
+        NeuobnrObjekt_label.grid_forget()
+        NeukdnummerAgeber_label.grid_forget()
+        kdnummerAgeber.grid(row=1, column=1, padx='5', pady='20', sticky='nw')
+        obnrObjekt.grid(row=1, column=1, padx='5', pady='20', sticky='nw')
+
+        if vorgangOkvar == "KUNDE NEU":
+           kdnrvar = "0000000001"
+           ageberfuellen(kdnrvar)
 
     def suchenlisteclick(event):
         textauswertungvar = suchenbox.get(suchenbox.curselection()[0])
-        textauswertungvar= textauswertungvar[0:10]
-        kdnrvar=textauswertungvar
+        textauswertungvar = textauswertungvar[0:10]
+        kdnrvar = textauswertungvar
         ageberfuellen(kdnrvar)
-
 
     window.bind_all("<FocusIn>", TexteFocusIn)
     window.bind_all("<Key>", TexteFocusIn)
@@ -1820,11 +1894,9 @@ def HauptMenue():
         else:
             listboxNutzer.delete(0, END)
             User.objects(user_name=benutzer).update_one(user_password=passwort)
-
             userpassword = User.objects().scalar('user_password')
             username = User.objects().scalar('user_name')
             user_number = 0
-
             for i in User.objects():
                 listboxNutzer.insert(END,
                                      f'Benutzername: {username[user_number].ljust(20)[0:20]}    Passwort: {userpassword[user_number].ljust(20)[0:20]}')
@@ -1838,11 +1910,9 @@ def HauptMenue():
         else:
             listboxNutzer.delete(0, END)
             User.objects(user_name=benutzer).delete()
-
             userpassword = User.objects().scalar('user_password')
             username = User.objects().scalar('user_name')
             user_number = 0
-
             for i in User.objects():
                 listboxNutzer.insert(END,
                                      f'Benutzername: {username[user_number].ljust(20)[0:20]}    Passwort: {userpassword[user_number].ljust(20)[0:20]}')
@@ -1856,11 +1926,9 @@ def HauptMenue():
         else:
             listboxNutzer.delete(0, END)
             User(user_name=benutzer, user_password=passwort).save()
-
             userpassword = User.objects().scalar('user_password')
             username = User.objects().scalar('user_name')
             user_number = 0
-
             for i in User.objects():
                 listboxNutzer.insert(END,
                                      f'Benutzername: {username[user_number].ljust(20)[0:20]}    Passwort: {userpassword[user_number].ljust(20)[0:20]}')
@@ -1901,29 +1969,17 @@ def HauptMenue():
 
     listboxNutzer = HAUPTMENUE.Listbox(PersonalRahmen, bd=2, width=80, heigh=5, borderwidth=2, relief="flat",
                                        font=('Courier New', 12,), selectmode='browse')
-    listboxNutzer.grid(row=4, column=0, padx='15', pady='10', sticky='ne', columnspan=5, )
+    listboxNutzer.grid(row=4, column=0, padx='15', pady='10', sticky='ne', columnspan=5)
     listboxNutzer.bind('<<ListboxSelect>>', lambda x: Nutzerauswahl(nutzername, nutzerpasswort))
     listboxNutzer.bind('<Double-Button-1>', lambda x: Nutzerauswahl(nutzername, nutzerpasswort))
     Nutzernameleer1_label = HAUPTMENUE.Label(PersonalRahmen, text=" ", fg='#2F4F4F', bg='#BDBDBD',
                                              font=('Courier New', 12), width=31, heigh=1)
     Nutzernameleer1_label.grid(row=5, column=0, padx='5', pady='5', sticky='nw', columnspan=5)
 
-    Personalbutton1Neu = HAUPTMENUE.Button(PersonalRahmen, text="Neu", command=PersonalbuttonNeuClick).grid(row=8,
-                                                                                                            column=0,
-                                                                                                            padx='10',
-                                                                                                            pady='20',
-                                                                                                            sticky='ew')
-    Personalbutton1Speichern = HAUPTMENUE.Button(PersonalRahmen, text="Speichern",
-                                                 command=PersonalbuttonSpeichernClick).grid(row=8, column=1, padx='10',
-                                                                                            pady='20', sticky='ew')
-    Personalbutton1loeschen = HAUPTMENUE.Button(PersonalRahmen, text="Löschen",
-                                                command=PersonalbuttonLöschenClick).grid(row=8, column=2, padx='10',
-                                                                                         pady='20', sticky='ew')
-    Personalbutton1Ende = HAUPTMENUE.Button(PersonalRahmen, text="Exit", command=PersonalbuttonEndeClick).grid(row=8,
-                                                                                                               column=3,
-                                                                                                               padx='10',
-                                                                                                               pady='20',
-                                                                                                               sticky='ew')
+    Personalbutton1Neu = HAUPTMENUE.Button(PersonalRahmen, text="Neu", command=PersonalbuttonNeuClick).grid(row=8,column=0, padx='10', pady='20',sticky='ew')
+    Personalbutton1Speichern = HAUPTMENUE.Button(PersonalRahmen, text="Speichern", command=PersonalbuttonSpeichernClick).grid(row=8, column=1, padx='10', pady='20', sticky='ew')
+    Personalbutton1loeschen = HAUPTMENUE.Button(PersonalRahmen, text="Löschen", command=PersonalbuttonLöschenClick).grid(row=8, column=2, padx='10', pady='20', sticky='ew')
+    Personalbutton1Ende = HAUPTMENUE.Button(PersonalRahmen, text="Exit", command=PersonalbuttonEndeClick).grid(row=8, column=3, padx='10', pady='20', sticky='ew')
 
     userpassword = User.objects().scalar('user_password')
     username = User.objects().scalar('user_name')
@@ -1933,18 +1989,19 @@ def HauptMenue():
         listboxNutzer.insert(END,
                              f'Benutzername: {username[user_number].ljust(20)[0:20]}    Passwort: {userpassword[user_number].ljust(20)[0:20]}')
         user_number += 1
-    # if NotUniqueError:
-    #   messagebox.showinfo(title="Doppelt", message="Benutzer oder Passwort fehlt")
-    PersonalRahmen.grid_forget()
-    # if benutzer == "":
-    #   messagebox.showinfo(title=benutzer, message=passwort)
-    #  window.destroy()
-    # HAUPTMENUE.HauptMenue()
-    # else:
-    #    pass
 
-    Hautbuttonumrandung = HAUPTMENUE.Frame(window, bd=2, width=201, heigh=58, bg='#BDBDBD', borderwidth=2,
-                                           relief="groove", )
+    PersonalRahmen.grid_forget()
+    # ******************************************************************************************************************
+    # ******************************************************************************************************************
+    # ********************************   HAUTMENUEBUTTON ERSTELLEN             *****************************************
+    # ******************************************************************************************************************
+    # ******************************************************************************************************************
+
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #                        BUTTON UND RAHMEN ERSTELLEN
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    Hautbuttonumrandung = HAUPTMENUE.Frame(window, bd=2, width=201, heigh=58, bg='#BDBDBD', borderwidth=2, relief="groove", )
     Hautbuttonumrandung.grid(row=0, column=1, padx='0', pady='3', sticky='nw', rowspan=7)
     HautbuttonDrucken = HAUPTMENUE.Button(Hautbuttonumrandung, text="Drucken").grid(row=0, column=0, padx='10',
                                                                                     pady='20', sticky='ew')
@@ -1962,13 +2019,8 @@ def HauptMenue():
                                                                                     pady='20', sticky='ew')
     HautbuttonDrucken = HAUPTMENUE.Button(Hautbuttonumrandung, text="Drucken").grid(row=7, column=0, padx='10',
                                                                                     pady='20', sticky='ew')
-    HautbuttonDrucken = HAUPTMENUE.Button(Hautbuttonumrandung, text="Personal", command=PersonalbuttonClick).grid(row=8,
-                                                                                                                  column=0,
-                                                                                                                  padx='10',
-                                                                                                                  pady='20',
-                                                                                                                  sticky='ew')
+    PersonalbuttonClick_button = HAUPTMENUE.Button(Hautbuttonumrandung, text="Personal", command=PersonalbuttonClick).grid(row=8, column=0, padx='10', pady='20', sticky='ew')
 
-    # messagebox.showinfo(message=kdnummerAgeber.grab_current(), title="Box-Titel")
     # HauptMenue()
     window.mainloop()
 
